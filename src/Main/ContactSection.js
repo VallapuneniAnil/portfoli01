@@ -1,0 +1,138 @@
+import React, { useState } from "react";
+import "./ContactSection.css";
+import myImg from '../images/my-img.jpg';
+
+const ContactSection = () => {
+  const contactDetails = {
+    _id: 124123,
+    email: "anilvallapuneni379@gmail.com",
+    phone: "+91 9391054918",
+  };
+  const [formdata, setFormData] = useState({
+    email: "",
+    name: "",
+    subject: "",
+    message: "",
+  });
+  const apiKey = '$2a$10$aIVhWWWVW8zc9qidWsfl4OTPyg.Qn8O1aEqzHWKJVd5MKqlPcaxLy'
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formdata,
+      [name]: value,
+    });
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      let request = await fetch('https://api.jsonbin.io/v3/b',{
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          'X-Master-Key': apiKey
+        },
+        body: JSON.stringify(formdata)
+      })
+      const response = await request.json(); 
+      console.log("Form submitted successfully:", response);
+      alert("Form Submitted")
+    }
+    catch(error){
+      console.log("error handling the request",error)
+    }
+  };
+  return (
+    <div className="contactus-section" id="contact">
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-md-4">
+            <div className="ban-img">
+              <img src={myImg} alt="my-prpofile" />
+            </div>
+            <p className="text-light pt-2">Contact Details</p>
+            <div id={contactDetails._id}>
+              <p className="text-light">{contactDetails.email}</p>
+              <p className="text-light">Contact on Mobile</p>
+              <p className="text-light">{contactDetails.phone}</p>
+            </div>
+          </div>
+          <div className="col-md-8">
+            <h3 className="text-light">Let's discuss your Project</h3>
+            <p className="text-light">
+              Always Avaialable for freelancing if the right project come in
+              Feel Free to Contact me
+            </p>
+            <h1 className="text-light">Please Contact to Know More</h1>
+            <form class="row g-3 contact-form">
+              <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  class="form-control bg-transparent text-light"
+                  id="inputEmail4"
+                  name="email"
+                  value={formdata.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="inputName4" class="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  class="form-control bg-transparent text-light"
+                  id="inputName4"
+                  name="name"
+                  value={formdata.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div class="col-12">
+                <label for="subject" class="form-label"x>
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  class="form-control bg-transparent text-light"
+                  id="subject"
+                  name="subject"
+                  value={formdata.subject}
+                  onChange={handleChange}
+                />
+              </div>
+              <div class="col-md-12">
+                <label for="inputMessage" class="form-label">
+                  Your Message
+                </label>
+                <textarea
+                  type="textarea"
+                  class="form-control bg-transparent text-light"
+                  id="inputMessage"
+                  style={{ height: "100px" }}
+                  name="message"
+                  value={formdata.message}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary text-light"
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ContactSection;
