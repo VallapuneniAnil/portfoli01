@@ -15,7 +15,7 @@ const AboutSection = () => {
                 <span className="h3">About Me!</span>
               </h6>
               <h2 className="text-light pb-2">
-                I AM AVAILABLE FOR <span>Java Full Developer</span> PROJECTS
+                I AM AVAILABLE FOR <span>Java Full Stack Developer</span> PROJECTS
               </h2>
             </div>
             <p className="text-light pb-2">
